@@ -5,6 +5,7 @@ search in real time, and view rich details in a modal — powered by the
 free [TVMaze API](https://www.tvmaze.com/api).
 
 **Live demo:** _https://movie-explorer-with-react.vercel.app/_
+
 **Repository:** _https://github.com/arefin008/Movie-Explorer_
 
 ---
