@@ -1,75 +1,149 @@
 # 🎬 MovieExplorer
 
-A responsive Movie Explorer built with React, React Router, and Tailwind CSS.
-Browse thousands of shows via the [TVMaze API](https://www.tvmaze.com/api),
-search by title, and view details in a modal.
+A responsive movie and TV show explorer built with React. Browse titles,
+search in real time, and view rich details in a modal — powered by the
+free [TVMaze API](https://www.tvmaze.com/api).
+
+**Live demo:** _https://movie-explorer-with-react.vercel.app/_
+**Repository:** _https://github.com/arefin008/Movie-Explorer_
+
+---
+
+## Table of contents
+
+- [Overview](#overview)
+- [Features](#features)
+- [Tech stack](#tech-stack)
+- [Project structure](#project-structure)
+- [Getting started](#getting-started)
+- [Available scripts](#available-scripts)
+- [API reference](#api-reference)
+- [Deployment](#deployment)
+- [Responsive design](#responsive-design)
+- [Author](#author)
+- [License](#license)
+
+---
+
+## Overview
+
+MovieExplorer is a single-page application built as a course assignment to
+demonstrate component-driven UI, client-side routing, external API
+integration, and responsive design in React. It consists of a landing page
+and a searchable movie listing page, with a details modal for each title.
 
 ## Features
 
-- **Home page** — navbar, hero banner with CTA, footer
-- **Movie listing page** — live search-as-you-type, responsive card grid
-- **Movie details modal** — poster/backdrop, rating, release date, genre,
-  network, and overview; closes via the ✕ button, the Close button, the
-  backdrop, or Escape
-- Fully responsive: single column on mobile, up to 4 columns on desktop
+- **Home page** — navbar with brand and navigation, a hero banner with a
+  call-to-action, a short "how it works" section, and a footer
+- **Movie listing page** — a search bar that filters results as you type,
+  backed by a debounced call to the API
+- **Responsive movie grid** — reusable card components showing poster,
+  title, release year, and rating
+- **Details modal** — backdrop image, title, rating, release date, genre,
+  network, and a full overview; dismissible via the close button, the
+  backdrop, or the <kbd>Esc</kbd> key
+- **Graceful states** — loading indicator, empty-search messaging, and
+  error handling for failed requests
+- **Fully responsive** — single-column layout on mobile, up to a
+  four-column grid on desktop
 
 ## Tech stack
 
-- React 18 + Vite
-- React Router for navigation between pages
-- Tailwind CSS for styling
-- TVMaze API (no key required) for show data
-
-## Getting started
-
-```bash
-npm install
-npm run dev
-```
-
-The app runs at `http://localhost:5173`.
-
-To build for production:
-
-```bash
-npm run build
-npm run preview
-```
+| Layer       | Choice                                   |
+|-------------|-------------------------------------------|
+| Library     | React 18                                   |
+| Bundler     | Vite                                       |
+| Routing     | React Router 6                             |
+| Styling     | Tailwind CSS                               |
+| Data source | [TVMaze API](https://www.tvmaze.com/api) (no key required) |
 
 ## Project structure
 
 ```
-src/
-  api/tvmaze.js        API calls + small data helpers
-  components/          Navbar, Hero, Footer, SearchBar, MovieCard,
-                        MovieGrid, MovieModal
-  pages/                Home, Listing
-  App.jsx               Route definitions
-  main.jsx              App entry point
+movie-explorer/
+├── public/
+│   └── _redirects          # Netlify SPA routing rule
+├── src/
+│   ├── api/
+│   │   └── tvmaze.js        # API calls and data-formatting helpers
+│   ├── components/
+│   │   ├── Navbar.jsx
+│   │   ├── Hero.jsx
+│   │   ├── Footer.jsx
+│   │   ├── SearchBar.jsx
+│   │   ├── MovieCard.jsx
+│   │   ├── MovieGrid.jsx
+│   │   └── MovieModal.jsx
+│   ├── pages/
+│   │   ├── Home.jsx
+│   │   └── Listing.jsx
+│   ├── App.jsx               # Route definitions
+│   ├── main.jsx               # App entry point
+│   └── index.css              # Tailwind directives + global styles
+├── index.html
+├── package.json
+├── tailwind.config.js
+├── vite.config.js
+└── vercel.json               # Vercel SPA routing rule
 ```
 
-## Deployment
+## Getting started
 
-This is a standard Vite SPA, so it deploys to any static host:
+### Prerequisites
 
-**Vercel**
-1. Import the repo at [vercel.com/new](https://vercel.com/new).
-2. Framework preset: Vite. Build command `npm run build`, output dir `dist`.
-3. Deploy. (`vercel.json` in this repo already handles client-side route
-   rewrites.)
+- [Node.js](https://nodejs.org/) 18 or later
+- npm (installed with Node.js)
 
-**Netlify**
-1. Import the repo at [app.netlify.com](https://app.netlify.com).
-2. Build command `npm run build`, publish directory `dist`.
-3. The included `public/_redirects` file handles SPA routing.
+### Installation
 
-**GitHub Pages**
-1. `npm install -D gh-pages`
-2. Add `"homepage": "https://<user>.github.io/<repo>"` to `package.json`
-   and a `"deploy": "gh-pages -d dist"` script.
-3. `npm run build && npm run deploy`
+```bash
+# 1. Clone the repository
+git clone <your-repo-url>
+cd movie-explorer
 
-## Data source
+# 2. Install dependencies
+npm install
 
-Show data, posters, and summaries are served by the free
-[TVMaze API](https://www.tvmaze.com/api) — no API key needed.
+# 3. Start the development server
+npm run dev
+```
+
+The app will be available at `http://localhost:5173`.
+
+## Available scripts
+
+| Command           | Description                              |
+|--------------------|-------------------------------------------|
+| `npm run dev`      | Starts the Vite development server        |
+| `npm run build`    | Builds the app for production into `dist` |
+| `npm run preview`  | Serves the production build locally       |
+
+## API reference
+
+All data comes from the public TVMaze API — no authentication needed.
+
+| Purpose        | Endpoint                                  |
+|-----------------|--------------------------------------------|
+| Browse all shows | `GET https://api.tvmaze.com/shows`        |
+| Search by title   | `GET https://api.tvmaze.com/search/shows?q={query}` |
+
+See `src/api/tvmaze.js` for the request functions and helpers used to
+normalize poster URLs, ratings, and release years.
+
+## Responsive design
+
+| Breakpoint | Layout                          |
+|------------|----------------------------------|
+| Mobile     | Single-column, stacked elements  |
+| Tablet     | 2–3 column movie grid            |
+| Desktop    | 3–4 column movie grid            |
+
+## Author
+
+_Nasimul Arafin Rounok_
+
+## License
+
+This project was built for educational purposes as part of a course
+assignment.
