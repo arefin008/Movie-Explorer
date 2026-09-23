@@ -1,0 +1,49 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: #14171F;
+}
+
+/* Filmstrip perforation strip — a genuine nod to physical film reel sprocket
+   holes, used as a structural divider rather than decoration. */
+.perf-strip {
+  height: 14px;
+  background-image: radial-gradient(circle, #14171F 3.5px, transparent 3.6px);
+  background-size: 22px 14px;
+  background-repeat: repeat-x;
+  background-position: center;
+}
+
+.perf-strip-light {
+  background-image: radial-gradient(circle, #F2EFE9 3.5px, transparent 3.6px);
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+}
+::-webkit-scrollbar-track {
+  background: #14171F;
+}
+::-webkit-scrollbar-thumb {
+  background: #3a3f4d;
+  border-radius: 999px;
+}
+
+:focus-visible {
+  outline: 2px solid #E8B34A;
+  outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
