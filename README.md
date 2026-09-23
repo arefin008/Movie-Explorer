@@ -19,7 +19,6 @@ free [TVMaze API](https://www.tvmaze.com/api).
 - [Getting started](#getting-started)
 - [Available scripts](#available-scripts)
 - [API reference](#api-reference)
-- [Deployment](#deployment)
 - [Responsive design](#responsive-design)
 - [Author](#author)
 - [License](#license)
